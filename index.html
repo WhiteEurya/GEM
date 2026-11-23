@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="GEM discovers generalizable garment manipulation skills by mining unexpected action effects in real-world robot experience.">
+  <meta property="og:title" content="GEM — Generalizable Skill Discovery through Action–Effect Mining">
+  <meta property="og:description" content="Agentic robot garment manipulation. Reusable skills acquired on one T-shirt and evaluated on seven unseen garments.">
+  <meta property="og:type" content="website">
+  <title>GEM — Generalizable Skill Discovery through Action–Effect Mining</title>
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Reserve the opening before first paint; reveal the document if startup fails.
+    (() => {
+      const root = document.documentElement;
+      const landing = ['', '#top', '#gem-mining', '#opening'].includes(location.hash);
+      const restored = performance.getEntriesByType('navigation')[0]?.type === 'back_forward';
+      if (!landing || restored || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      root.dataset.opening = 'pending';
+      window.gemOpeningFallback = setTimeout(() => {
+        if (root.dataset.opening === 'pending') delete root.dataset.opening;
+      }, 4500);
+    })();
+  </script>
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="opening" id="opening" hidden role="dialog" aria-modal="true" aria-labelledby="opening-title" data-state="idle">
+    <div class="opening-backdrop" id="opening-backdrop"></div>
+    <h2 id="opening-title" class="sr-only">GEM opening animation</h2>
+    <div class="opening-stage" id="opening-stage"><svg class="opening-scene" id="gem-mining-scene" viewBox="0 0 760 350" role="img" aria-labelledby="mining-svg-title mining-svg-desc">
+            <title id="mining-svg-title">Mining a gemstone from experience</title>
+            <desc id="mining-svg-desc">A pickaxe opens a faceted rock. One jade gemstone springs out and moves into the GEM mark beside the paper title. An opening illustration, not experimental footage.</desc>
+            <path d="M120 266 246 248 510 248 640 266 510 283 246 283Z" fill="#e5ecef" id="mining-ground"/>
+            <g id="mining-gems"></g>
+            <g id="mining-ore">
+              <g class="ore-piece"><path d="M179 194 215 132 292 94 304 173 249 218Z" fill="#8a9da8"/><path d="m215 132 77-38 12 79Z" fill="#afbec5"/></g>
+              <g class="ore-piece"><path d="M292 94 385 80 415 143 375 180 304 173Z" fill="#849aa6"/><path d="m292 94 93-14-38 64Z" fill="#b9c7cd"/></g>
+              <g class="ore-piece"><path d="M385 80 478 106 489 157 415 143Z" fill="#637f8e"/><path d="m385 80 93 26-63 37Z" fill="#9bb0ba"/></g>
+              <g class="ore-piece"><path d="M478 106 544 160 569 229 489 222 489 157Z" fill="#496575"/><path d="m478 106 66 54-55-3Z" fill="#7f98a5"/></g>
+              <g class="ore-piece"><path d="M179 194 249 218 304 173 337 234 288 263 198 248Z" fill="#627b89"/><path d="m179 194 70 24-51 30Z" fill="#405d6c"/></g>
+              <g class="ore-piece"><path d="M304 173 375 180 415 143 439 212 380 243 337 234Z" fill="#748e9c"/><path d="m304 173 71 7-38 54Z" fill="#91a6b0"/></g>
+              <g class="ore-piece"><path d="M415 143 489 157 489 222 439 249 380 243 439 212Z" fill="#405c6d"/><path d="m415 143 74 14-50 55Z" fill="#627e8e"/></g>
+              <g class="ore-piece"><path d="M198 248 288 263 337 234 380 243 439 249 489 222 569 229 515 257 355 274Z" fill="#334e5e"/><path d="m380 243 59 6 50-27 26 35Z" fill="#597582"/></g>
+            </g>
+            <g id="mining-veins" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m456 118-21 36-32 14-11 31-33 23-12 28" stroke="#b5f0dc" stroke-width="3"/>
+              <path d="m403 168-49-12-30 16m68 27 35 12 13 32" stroke="#d6f5e8" stroke-width="2"/>
+              <path d="m435 154 31 19 12 30m-119 19-41-8" stroke="#e3f4ee" stroke-width="1.5"/>
+            </g>
+            <g id="mining-debris"></g>
+            <g id="mining-impact" fill="none" stroke="#a7d8cc" stroke-width="2.5" stroke-linecap="round"><path d="m438 108-12-8m27 1 1-16m14 23 12-9m-40 29-17 4"/></g>
+            <g id="mining-pickaxe">
+              <path d="m518 89 80 117" stroke="#88643e" stroke-width="14" stroke-linecap="round"/>
+              <path d="m518 88 80 117" stroke="#c6a273" stroke-width="9" stroke-linecap="round"/>
+              <path d="m581 181 18 25" stroke="#4a626d" stroke-width="15" stroke-linecap="round"/>
+              <path d="M446 125Q468 77 523 72Q559 67 585 89L578 96Q539 85 516 95Q476 102 446 125Z" fill="#344e5d"/>
+              <path d="M446 125Q468 77 523 72Q559 67 585 89Q541 77 516 86Q475 93 446 125Z" fill="#9cb0bb"/>
+              <path d="m511 79 12-5 11 18-15 7Z" fill="#607c8d"/>
+            </g>
+          </svg></div>
+    <div class="opening-flight" id="opening-flight" aria-hidden="true"></div>
+    <div class="opening-controls"><button type="button" id="opening-toggle" aria-controls="opening-stage"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h3v10H4ZM9 3h3v10H9Z"/></svg><span>Pause</span></button><button type="button" id="opening-skip" data-copy="opening.controls.skip">Skip intro</button></div>
+    <div class="opening-caption" id="opening-caption"><p id="opening-phase" aria-hidden="true"></p></div>
+    <div class="opening-progress" aria-hidden="true"><span id="opening-progress"></span></div>
+    <span class="sr-only" id="opening-status" role="status"></span>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="GEM home"><span data-gem aria-hidden="true"></span>GEM</a>
+      <nav aria-label="Main navigation"><a href="#method">Method</a><a href="#skills">Skills</a><a href="#experiments">Experiments</a><a href="#resources">Resources</a></nav>
+      <a class="nav-demo" href="#demo"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5 3 8 5-8 5Z"/></svg>View demo</a>
+    </div>
+    <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+  </header>
+  <main id="main">
+    <section class="hero container" id="top" aria-labelledby="paper-title">
+      <div class="hero-heading">
+        <div class="hero-main">
+          <h1 id="paper-title" tabindex="-1"><span class="paper-brand"><span class="hero-gem" data-gem aria-hidden="true"></span><span class="paper-acronym" data-copy="paper.acronym">GEM</span></span><span class="sr-only">: </span><span class="paper-title" data-copy="paper.title"></span></h1>
+          <p class="hero-summary" data-copy="copy.heroSummary"></p>
+          <button class="intro-replay" id="intro-replay" type="button" data-copy="opening.controls.replay" hidden>Replay intro</button>
+        </div>
+        <aside class="hero-evidence" aria-labelledby="hero-chart-title">
+          <div class="evidence-caption"><span class="evidence-symbol" data-gem aria-hidden="true"></span><h2 id="hero-chart-title" data-copy="copy.heroChartTitle"></h2></div>
+          <div class="hero-result"><strong id="hero-success-rate"></strong><span data-copy="copy.heroChartScope"></span></div>
+          <div class="hero-chart" id="hero-chart"></div>
+          <a class="evidence-link" href="#experiments">Explore the experiments <span aria-hidden="true">↘</span></a>
+        </aside>
+      </div>
+      <div class="hero-meta">
+        <div class="author-block"><div class="authors" id="authors"></div><p class="affiliations" id="affiliations"></p></div>
+        <div class="hero-resources" id="hero-resources" aria-label="Project resources"><a class="resource-button resource-primary" href="#demo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6Z"/></svg>View demo</a></div>
+      </div>
+      <figure class="hero-demo" id="demo">
+        <div class="video-heading"><span><span class="status-dot" aria-hidden="true"></span><span data-copy="copy.heroCaption"></span></span><span data-copy="copy.heroDetail"></span></div>
+        <div id="hero-media" class="video-frame"></div>
+      </figure>
+      <p class="insight" data-copy="copy.insight"></p>
+    </section>
+
+    <section class="abstract-section section" id="abstract" aria-labelledby="abstract-heading">
+      <div class="reading-container"><h2 id="abstract-heading">Abstract</h2><p class="abstract-text" data-copy="paper.abstract"></p></div>
+    </section>
+
+    <section class="section container" id="method" aria-labelledby="method-heading">
+      <div class="section-heading"><h2 id="method-heading" data-copy="copy.methodTitle"></h2><p data-copy="copy.methodIntro"></p></div>
+      <div class="framework" id="framework" role="region" aria-label="Interactive GEM framework">
+        <div class="framework-toolbar">
+          <div class="framework-controls">
+            <button type="button" id="framework-play" disabled><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5 3 7 5-7 5Z"/></svg><span>Loading animation…</span></button>
+            <button type="button" id="framework-prev" aria-label="Previous framework step"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 5-5 5 5 5"/></svg></button>
+            <button type="button" id="framework-next" aria-label="Next framework step"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></button>
+          </div>
+        </div>
+        <ol class="framework-steps" id="framework-steps" aria-label="Framework steps"></ol>
+        <div class="framework-artwork">
+          <button type="button" class="framework-map" id="framework-map" aria-label="Show the complete framework figure"><img data-media="method" width="2600" height="1088" alt="" loading="lazy"><span id="framework-map-focus" aria-hidden="true"></span></button>
+          <div class="framework-viewport" id="framework-viewport">
+            <img id="framework-fallback" data-media="method" width="2600" height="1088" alt="Figure 3: autonomous exploration produces interaction records; failure evidence guides the mining and filtering of surprising effects into skills." loading="lazy">
+            <div id="framework-vector" role="img" aria-label="Original Figure 3, with animated exploration, failure collection, intention–outcome comparison, filtering, and skill consolidation."></div>
+            <div id="framework-hotspots" aria-label="Explore the five figure panels"></div>
+          </div>
+          <div class="framework-figure-tools"><button type="button" id="framework-overview">Full overview</button><button type="button" data-figure="method">Enlarge original figure <span aria-hidden="true">⤢</span></button></div>
+        </div>
+        <div class="framework-detail" id="framework-detail">
+          <div><h3 id="framework-detail-title"></h3></div>
+          <div><p id="framework-detail-body"></p><a class="framework-deeper" id="framework-deeper" href="#method-exploration">Explore this part in detail <span aria-hidden="true">↘</span></a></div>
+        </div>
+        <span class="sr-only" id="framework-status" role="status"></span>
+      </div>
+      <div class="method-deep-dive" id="method-details">
+        <div class="method-contents">
+          <div><h3 data-copy="methodDetails.title"></h3></div>
+          <nav id="method-chapters" aria-label="Method details"></nav>
+        </div>
+
+        <article class="method-chapter" id="method-exploration" aria-labelledby="exploration-title">
+          <header class="chapter-heading"><h3 id="exploration-title" data-copy="methodDetails.exploration.title"></h3><p data-copy="methodDetails.exploration.intro"></p></header>
+          <div class="exploration-layout">
+            <figure class="detail-figure">
+              <div class="exploration-mobile-controls" id="exploration-mobile-controls" role="group" aria-label="Explore the steps in Figure 4"></div>
+              <div class="exploration-artwork" id="exploration-artwork" data-focused="false">
+                <picture><source id="exploration-mobile-source" media="(max-width: 700px)"><img id="exploration-image" data-media="exploration" width="2100" height="1662" loading="lazy"></picture>
+                <div class="exploration-hotspots" id="exploration-hotspots" aria-label="Select a panel of Figure 4"></div>
+              </div>
+              <div class="detail-figure-tools"><button type="button" id="exploration-reset" aria-pressed="true">Full exploration loop</button><button type="button" data-figure="exploration">Enlarge Figure 4 <span aria-hidden="true">⤢</span></button></div>
+              <div class="exploration-mobile-detail" id="exploration-mobile-detail"><h4 id="exploration-mobile-title"></h4><p id="exploration-mobile-body"></p></div>
+            </figure>
+            <div class="exploration-reading"><p class="exploration-principle" data-copy="methodDetails.exploration.overview"></p><ol id="exploration-steps" class="exploration-steps"></ol><span class="sr-only" id="exploration-status" role="status"></span></div>
+          </div>
+          <details class="method-technical"><summary data-copy="methodDetails.exploration.detailsLabel"></summary><div class="technical-content">
+            <div><h4>Rank-biased sampling</h4><div class="equation" role="math" aria-label="The probability of selecting rank j equals its weight divided by the sum of all candidate weights.">P(J<sub>t</sub> = j) = <span class="fraction"><span>w<sub>j</sub></span><span>∑<sub>k=1</sub><sup>Kₜ</sup> w<sub>k</sub></span></span></div><p class="weight-rule" role="math" aria-label="Weights are non-increasing with rank and all positive.">w₁ ≥ w₂ ≥ ⋯ ≥ w<sub>Kₜ</sub> &gt; 0</p></div>
+            <div><h4 data-copy="methodDetails.exploration.recordLabel"></h4><dl class="record-fields" id="interaction-record"></dl></div>
+          </div></details>
+        </article>
+
+        <article class="method-chapter" id="method-mining" aria-labelledby="mining-title">
+          <header class="chapter-heading"><h3 id="mining-title" data-copy="methodDetails.mining.title"></h3><p data-copy="methodDetails.mining.intro"></p></header>
+          <div class="mining-tabs" id="mining-tabs" role="tablist" aria-label="Compare action–effect examples"></div>
+          <div id="mining-case" class="mining-case" role="tabpanel" tabindex="0">
+            <figure class="detail-figure mining-figure">
+              <picture><source id="mining-mobile-source" media="(max-width: 700px)"><img id="mining-image" width="2100" height="785" loading="lazy"></picture>
+              <div class="mining-mobile-check"><p>Compared with recurring failures</p><img id="mining-check-image" width="735" height="647" loading="lazy"></div>
+            </figure>
+            <dl class="mining-reading"><div><dt>Stated intention</dt><dd id="mining-intention"></dd></div><div><dt>Observed effect</dt><dd id="mining-effect"></dd></div><div><dt>Failure-guided selection <span id="mining-verdict"></span></dt><dd id="mining-decision"></dd></div></dl>
+          </div>
+          <div class="mining-figure-tools"><button type="button" class="text-button" data-figure="effectMining">View both original panels <span aria-hidden="true">⤢</span></button></div>
+          <span class="sr-only" id="mining-status" role="status"></span>
+          <details class="method-technical"><summary data-copy="methodDetails.mining.detailsLabel"></summary><div class="effect-notation"><div><div class="equation" role="math" aria-label="A physical effect phi consists of a region r, property p, and qualitative change delta.">φ = (r, p, δ)</div><p data-copy="methodDetails.mining.effectDescription"></p></div><div><dl class="record-fields" id="effect-fields"></dl><p class="effect-example" data-copy="methodDetails.mining.effectExample"></p></div></div></details>
+        </article>
+
+        <article class="method-chapter" id="method-transfer" aria-labelledby="transfer-title">
+          <header class="chapter-heading"><h3 id="transfer-title" data-copy="methodDetails.transfer.title"></h3><p data-copy="methodDetails.transfer.intro"></p></header>
+          <div class="transfer-layout">
+            <div class="skill-definition"><div class="skill-definition-heading"><h4 data-copy="methodDetails.transfer.schemaTitle"></h4><span>Eq. 4</span></div><div class="equation" role="math" aria-label="A skill consists of applicability conditions, manipulation strategy, target effect, and supporting evidence.">s<sub>k</sub> = (c<sub>k</sub>, σ<sub>k</sub>, φ<sub>k</sub>, ℰ<sub>k</sub>)</div><dl id="skill-definition-fields"></dl></div>
+            <div class="transfer-reading"><h4 data-copy="methodDetails.transfer.geometryTitle"></h4><p data-copy="methodDetails.transfer.geometryBody"></p><p data-copy="methodDetails.transfer.deploymentBody"></p><a class="method-skill-link" href="#skills"><span data-copy="methodDetails.transfer.linkLabel"></span><span aria-hidden="true">↘</span></a></div>
+          </div>
+          <ol class="transfer-phases" id="transfer-phases"></ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="skills" aria-labelledby="skills-heading">
+      <div class="container">
+        <div class="section-heading"><h2 id="skills-heading" data-copy="copy.skillsTitle"></h2><p data-copy="copy.skillsIntro"></p></div>
+        <div class="skill-filters" id="skill-filters" role="group" aria-label="Filter discovered skills"></div>
+        <div class="skills-grid" id="skills-grid"></div>
+        <span class="sr-only" id="skill-filter-status" role="status"></span>
+        <details class="figure-details"><summary>See the before-and-after examples from the paper</summary><figure class="paper-figure"><button class="figure-button" type="button" data-figure="skillFigure" aria-label="Enlarge skill examples"><img data-media="skillFigure" width="1552" height="1013" loading="lazy" alt="Figure 10: before and after examples of opposite-side unfolding, make space, folded-flap unfolding, and sleeve extension."></button></figure></details>
+      </div>
+    </section>
+
+    <section class="section container" id="experiments" aria-labelledby="experiments-heading">
+      <div class="section-heading"><h2 id="experiments-heading" data-copy="copy.experimentsTitle"></h2><p data-copy="copy.experimentsIntro"></p></div>
+      <div class="results-summary">
+        <div class="results-heading"><h3>Generalization to unseen garments</h3><p data-copy="copy.resultsScope"></p></div>
+        <div class="metric-grid" id="metrics"></div>
+        <p class="manual-result" data-copy="copy.manualResult"></p>
+      </div>
+      <div class="gallery-heading"><h3 data-copy="copy.galleryTitle"></h3></div>
+      <div class="garment-selectors" id="garment-selectors" role="group" aria-label="Select a garment"></div>
+      <div class="garment-viewer" id="garment-viewer">
+        <div id="garment-media" class="video-frame"></div>
+        <div class="garment-info" id="garment-info" aria-live="polite" aria-atomic="true"></div>
+      </div>
+      <details class="results-details" open>
+        <summary>Results for all eight garments</summary>
+        <div class="table-scroll" role="region" aria-label="Per-garment results table" tabindex="0"><table aria-label="Successful episodes / total episodes by garment"><thead><tr><th scope="col">Garment</th><th scope="col">Size</th><th scope="col">Base Agent</th><th scope="col">GEM</th></tr></thead><tbody id="results-rows"></tbody></table></div>
+        <button class="text-button" type="button" data-figure="results">View the original results figure <span aria-hidden="true">⤢</span></button>
+      </details>
+      <div class="protocol"><div><h3>Evaluation protocol</h3><p data-copy="copy.protocol"></p></div><div><h3>What counts as success?</h3><p data-copy="copy.successCriterion"></p></div></div>
+    </section>
+
+    <section class="section section-tint" id="resources" aria-labelledby="resources-heading">
+      <div class="container resources-layout">
+        <div><h2 id="resources-heading">Citation &amp; resources</h2><div class="resource-list" id="resource-list"></div></div>
+        <div class="citation" id="citation"><div class="citation-head"><h3>BibTeX</h3><button id="copy-citation" type="button">Copy template</button></div><pre><code id="bibtex-text" data-copy="paper.bibtex"></code></pre><span class="sr-only" id="copy-status" role="status"></span></div>
+      </div>
+    </section>
+  </main>
+  <footer class="container footer"><span data-copy="copy.footer"></span><a href="#top">Back to top <span aria-hidden="true">↑</span></a></footer>
+  <dialog id="figure-dialog" aria-labelledby="figure-dialog-title"><div class="dialog-header"><h2 id="figure-dialog-title">Research figure</h2><button id="close-figure" type="button" aria-label="Close figure">Close <span aria-hidden="true">×</span></button></div><div class="dialog-image"><img id="expanded-figure" alt=""></div></dialog>
+  <noscript><p class="noscript">Please enable JavaScript to load the research content and video gallery.</p></noscript>
+</body>
+</html>
